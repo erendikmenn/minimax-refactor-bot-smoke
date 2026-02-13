@@ -7,3 +7,7 @@ Simple test repository used to validate `minimax-refactor-bot` end-to-end.
 - CI still passes on merged changes.
 - Bot runs on push to `main`.
 - Bot can open `auto: minimax refactor & optimization` PR.
+
+## Notes
+
+This line was added for scenario-c docs-only merge validation.
