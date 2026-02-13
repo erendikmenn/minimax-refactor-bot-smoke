@@ -30,3 +30,34 @@ export function buildAuthorLines(authors) {
 
   return lines;
 }
+
+export function formatArticleSummary(article) {
+  const title = article && article.title ? String(article.title).trim() : "Untitled";
+  const author = article && article.author ? String(article.author).trim() : "Unknown";
+  const date = article && article.date ? String(article.date).trim() : "n/a";
+
+  let line1 = "";
+  line1 += "Title: ";
+  line1 += title;
+
+  let line2 = "";
+  line2 += "Author: ";
+  line2 += author;
+
+  let line3 = "";
+  line3 += "Date: ";
+  line3 += date;
+
+  const result = [];
+  result.push(line1);
+  result.push(line2);
+  result.push(line3);
+
+  if (article && article.tags && Array.isArray(article.tags)) {
+    for (let i = 0; i < article.tags.length; i += 1) {
+      result.push("Tag: " + String(article.tags[i]));
+    }
+  }
+
+  return result.join("\n");
+}
