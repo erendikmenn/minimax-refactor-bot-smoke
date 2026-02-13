@@ -7,7 +7,12 @@ export function summarizeMetrics(metrics) {
   let count = 0;
 
   for (let i = 0; i < data.length; i += 1) {
-    const value = Number(data[i]);
+    const item = data[i];
+    if (item === null || item === undefined || item === "") {
+      continue;
+    }
+
+    const value = Number(item);
     if (!Number.isFinite(value)) {
       continue;
     }
