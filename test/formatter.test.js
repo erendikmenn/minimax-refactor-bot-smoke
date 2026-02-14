@@ -3,12 +3,16 @@ import assert from "node:assert/strict";
 
 import { formatStatCard } from "../src/formatter.js";
 
+function assertFormat(input, expectedPattern) {
+  const output = formatStatCard(input);
+  assert.match(output, expectedPattern);
+}
+
 test("formatStatCard with unit", () => {
-  const output = formatStatCard({ title: "Latency", value: 120, unit: "ms" });
-  assert.match(output, /Latency: 120 ms/);
+  assertFormat({ title: "Latency", value: 120, unit: "ms" }, /Latency: 120 ms/);
 });
 
 test("formatStatCard defaults", () => {
-  const output = formatStatCard({});
-  assert.match(output, /Untitled: 0/);
+  assertFormat({}, /Untitled: 0/);
 });
+ 

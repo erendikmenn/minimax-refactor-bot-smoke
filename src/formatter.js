@@ -1,38 +1,13 @@
 export function formatStatCard(input) {
-  let title = "";
-  if (input && input.title) {
-    title = String(input.title);
-  } else {
-    title = "Untitled";
-  }
+  const title = input?.title ? String(input.title) : "Untitled";
+  const value = input?.value != null ? String(input.value) : "0";
+  const unit = input?.unit ? String(input.unit) : "";
 
-  let value = "";
-  if (input && input.value !== undefined && input.value !== null) {
-    value = String(input.value);
-  } else {
-    value = "0";
-  }
+  const display = unit ? `${title}: ${value} ${unit}` : `${title}: ${value}`;
 
-  let unit = "";
-  if (input && input.unit) {
-    unit = String(input.unit);
-  } else {
-    unit = "";
-  }
-
-  let display = "";
-  display += title;
-  display += ": ";
-  display += value;
-  if (unit) {
-    display += " ";
-    display += unit;
-  }
-
-  const lines = [];
-  lines.push("=== STAT ===");
-  lines.push(display);
-  lines.push("============");
-
-  return lines.join("\n");
+  return [
+    "=== STAT ===",
+    display,
+    "============"
+  ].join("\n");
 }
