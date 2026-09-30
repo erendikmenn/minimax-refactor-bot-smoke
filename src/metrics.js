@@ -1,14 +1,12 @@
 export function summarizeMetrics(metrics) {
-  const data = Array.isArray(metrics) ? metrics : [];
+  const data = Array.isArray(metrics) ? metrics : [metrics];
 
   let min = Infinity;
   let max = -Infinity;
-  let total = 0;
-  let count = 0;
+  let total = 0, count = 0;
 
-  for (let i = 0; i < data.length; i += 1) {
-    const item = data[i];
-    if (item === null || item === undefined || item === "") {
+  for (const item of data) {
+    if (item == null || item === "") {
       continue;
     }
 
@@ -17,15 +15,10 @@ export function summarizeMetrics(metrics) {
       continue;
     }
 
-    if (value < min) {
-      min = value;
-    }
-    if (value > max) {
-      max = value;
-    }
-
-    total = total + value;
-    count = count + 1;
+    min = Math.min(min, value);
+    max = Math.max(max, value);
+    total += value;
+    count += 1;
   }
 
   if (count === 0) {
@@ -33,10 +26,5 @@ export function summarizeMetrics(metrics) {
   }
 
   const avg = total / count;
-  let out = "";
-  out += "count=" + count;
-  out += "; min=" + min;
-  out += "; max=" + max;
-  out += "; avg=" + avg.toFixed(2);
-  return out;
+  return `count=${count}; min=${min}; max=${max}; avg=${avg.toFixed(2)}`;
 }
