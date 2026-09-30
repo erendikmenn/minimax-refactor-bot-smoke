@@ -32,32 +32,19 @@ export function buildAuthorLines(authors) {
 }
 
 export function formatArticleSummary(article) {
-  const title = article && article.title ? String(article.title).trim() : "Untitled";
-  const author = article && article.author ? String(article.author).trim() : "Unknown";
-  const date = article && article.date ? String(article.date).trim() : "n/a";
+  const fields = {
+    title: article?.title ? String(article.title).trim() : "Untitled",
+    author: article?.author ? String(article.author).trim() : "Unknown",
+    date: article?.date ? String(article.date).trim() : "n/a",
+  };
 
-  let line1 = "";
-  line1 += "Title: ";
-  line1 += title;
+  const lines = [
+    `Title: ${fields.title}`,
+    `Author: ${fields.author}`,
+    `Date: ${fields.date}`,
+  ];
 
-  let line2 = "";
-  line2 += "Author: ";
-  line2 += author;
+  article?.tags?.forEach?.((tag) => lines.push(`Tag: ${String(tag).trim()}`));
 
-  let line3 = "";
-  line3 += "Date: ";
-  line3 += date;
-
-  const result = [];
-  result.push(line1);
-  result.push(line2);
-  result.push(line3);
-
-  if (article && article.tags && Array.isArray(article.tags)) {
-    for (let i = 0; i < article.tags.length; i += 1) {
-      result.push("Tag: " + String(article.tags[i]));
-    }
-  }
-
-  return result.join("\n");
+  return lines.join("\n");
 }
